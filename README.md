@@ -91,7 +91,7 @@ you will need to setup QEMU before using this action, for example
 
 ```yaml
 - name: Setup QEMU
-  uses: docker/setup-qemu-action@v1
+  uses: step-security/setup-qemu-action@v4
 - uses: step-security/maturin-action@v1
   with:
     command: build
@@ -138,7 +138,7 @@ These run on the host, so the interpreters come from your own `actions/setup-pyt
 the free-threaded build alongside the regular one:
 
 ```yaml
-- uses: actions/setup-python@v6
+- uses: actions/setup-python@v7
   with:
     python-version: |
       3.14
@@ -242,14 +242,6 @@ An example renovate configuration
   packageNameTemplate: "PyO3/maturin",
   datasourceTemplate: "github-releases",
 },
-```
-
-## Contributing
-
-To build after code changes:
-
-```bash
-npm run all
 ```
 
 ## License

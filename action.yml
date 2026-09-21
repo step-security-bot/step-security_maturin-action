@@ -1,6 +1,6 @@
 name: 'maturin-action'
 description: 'GitHub Action to install and run a custom maturin command'
-author: messense
+author: 'step-security'
 
 inputs:
   token:

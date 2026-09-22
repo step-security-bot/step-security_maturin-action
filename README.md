@@ -222,7 +222,7 @@ strategy:
 steps:
   # [...]
   - name: "Build wheels"
-    uses: step-security/maturin-action@86b9d133d34bc1b40018696f782949dac11bd380 # v1.49.4
+    uses: step-security/maturin-action@v1
     with:
       maturin-version: v1.11.5
       target: ${{ matrix.platform.target }}

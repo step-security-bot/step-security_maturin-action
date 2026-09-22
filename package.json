@@ -1,0 +1,47 @@
+{
+  "name": "maturin-action",
+  "version": "1.51.0",
+  "type": "module",
+  "description": "GitHub Action to install and run a custom maturin command",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "ncc build src/index.ts -o dist",
+    "format": "prettier --write **/*.ts",
+    "format-check": "prettier --check **/*.ts",
+    "lint": "eslint **/*.ts",
+    "all": "npm run format && npm run lint && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/step-security/maturin-action.git"
+  },
+  "author": "step-security",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/step-security/maturin-action/issues"
+  },
+  "homepage": "https://github.com/step-security/maturin-action#readme",
+  "dependencies": {
+    "@actions/core": "^3.0.0",
+    "@actions/exec": "^3.0.0",
+    "axios": "^1.20.0",
+    "@actions/glob": "^0.6.1",
+    "@actions/tool-cache": "^4.0.0",
+    "smol-toml": "^1.8.0",
+    "string-argv": "^0.3.1"
+  },
+  "devDependencies": {
+    "@eslint/compat": "^1.2.9",
+    "@eslint/eslintrc": "^3.3.1",
+    "@eslint/js": "^9.24.0",
+    "eslint-plugin-import": "^2.31.0",
+    "@types/node": "^25.2.1",
+    "@typescript-eslint/eslint-plugin": "^8.29.0",
+    "@typescript-eslint/parser": "^8.29.0",
+    "@vercel/ncc": "^0.38.3",
+    "eslint": "^9.24.0",
+    "globals": "^17.3.0",
+    "prettier": "^3.5.2",
+    "typescript": "^5.9.3"
+  }
+}

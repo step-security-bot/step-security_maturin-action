@@ -21,7 +21,12 @@ inputs:
     description: Control the manylinux platform tag on linux.
     required: false
   container:
-    description: Docker container image name. Default depends on "target" and "manylinux" options.
+    description: |
+      Docker container image name. Default depends on "target" and "manylinux" options.
+      WARNING: Try not to set this input from untrusted or user-controlled data
+      (e.g. PR titles, branch names, issue bodies). Doing so could allow
+      a malicious image to be pulled and executed with access to secrets
+      and mounted volumes. Only use static, hardcoded values.
     required: false
   docker-options:
     description: Additional Docker run options, for passing environment variables and etc.
@@ -50,7 +55,11 @@ inputs:
     required: false
     default: 'false'
   before-script-linux:
-    description: Script to run before maturin command on Linux.
+    description: |
+      Script to run before maturin command on Linux.
+      WARNING: Try not to set this input from untrusted or user-controlled data
+      (e.g. PR titles, branch names, issue bodies). Doing so allows arbitrary
+      command execution on the runner. Only use static, hardcoded values.
     required: false
 
 runs:

@@ -1,5 +1,5 @@
 [package]
-authors = ["konstin <konstin@mailbox.org>"]
+authors = ["step-security"]
 name = "pyo3-pure"
 version = "2.1.2"
 edition = "2021"

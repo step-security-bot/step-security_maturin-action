@@ -13,7 +13,7 @@ import {
   createReadStream
 } from 'fs'
 import stringArgv from 'string-argv'
-import {JsonMap, parse as parseTOML} from '@iarna/toml'
+import {parse as parseTOML} from 'smol-toml'
 import {createHash} from 'crypto'
 import {pipeline} from 'stream/promises'
 import axios, {isAxiosError} from 'axios'
@@ -417,7 +417,7 @@ function getManifestDir(args: string[]): string {
 
 function parseRustToolchain(content: string): string {
   const toml = parseTOML(content.toString())
-  const toolchain = toml?.toolchain as JsonMap
+  const toolchain = toml?.toolchain as Record<string, unknown>
   return (toolchain?.channel as string) || ''
 }
 
@@ -567,7 +567,10 @@ async function findVersion(args: string[]): Promise<string> {
     if (existsSync(pyprojectToml)) {
       const content = await fs.readFile(pyprojectToml)
       const toml = parseTOML(content.toString())
-      const buildSystem = (toml['build-system'] || {}) as JsonMap
+      const buildSystem = (toml['build-system'] || {}) as Record<
+        string,
+        unknown
+      >
       const requires = (buildSystem['requires'] || []) as string[]
       const maturin = requires.find(req => req.startsWith('maturin'))
       if (maturin) {
@@ -1317,7 +1320,7 @@ async function hostBuild(
     core.endGroup()
   }
 
-  let fullCommand = `${maturinPath} ${args.join(' ')}`
+  let execArgs = args
   if (command === 'upload') {
     // Expand globs for upload command
     const uploadArgs = []
@@ -1336,9 +1339,9 @@ async function hostBuild(
         process.chdir(cwd)
       }
     }
-    fullCommand = `${maturinPath} ${command} ${uploadArgs.join(' ')}`
+    execArgs = [command, ...uploadArgs]
   }
-  const exitCode = await exec.exec(fullCommand, undefined, {env, cwd: workdir})
+  const exitCode = await exec.exec(maturinPath, execArgs, {env, cwd: workdir})
   if (sccache) {
     core.startGroup('sccache stats')
     await exec.exec('sccache', ['--show-stats'])

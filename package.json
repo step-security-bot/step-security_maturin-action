@@ -27,7 +27,7 @@
     "axios": "^1.20.0",
     "@actions/glob": "^0.6.1",
     "@actions/tool-cache": "^4.0.0",
-    "@iarna/toml": "github:AlexTMjugador/iarna-toml#fix/comment-crlf",
+    "smol-toml": "^1.8.0",
     "string-argv": "^0.3.1"
   },
   "devDependencies": {

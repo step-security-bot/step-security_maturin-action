@@ -39,13 +39,7 @@ jobs:
     strategy:
       fail-fast: ${{ !contains(github.event.pull_request.labels.*.name, 'CI-no-fail-fast') }}
       matrix:
-        os:
-          - ubuntu-24.04
-          - ubuntu-24.04-arm
-          - macos-15-intel
-          - macos-latest
-          - windows-latest
-          - windows-11-arm
+        os: ${{ github.actor == 'dependabot[bot]' && fromJSON('["ubuntu-24.04"]') || fromJSON('["ubuntu-24.04", "ubuntu-24.04-arm", "macos-15-intel", "macos-latest", "windows-latest", "windows-11-arm"]') }}
         toolchain: [stable, nightly]
     steps:
       - uses: actions/checkout@v7
@@ -57,7 +51,7 @@ jobs:
           ref: main
           path: maturin
           persist-credentials: false
-      - uses: dtolnay/rust-toolchain@v1
+      - uses: step-security/dtolnay-rust-toolchain@v1
         with:
           toolchain: stable
       - name: maturin build
@@ -220,6 +214,7 @@ jobs:
 
   test-manylinux:
     name: Manylinux Test Suite
+    if: github.actor != 'dependabot[bot]'
     runs-on: ${{ matrix.os }}
     needs: [lint]
     strategy:
